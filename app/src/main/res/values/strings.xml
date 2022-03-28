@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Images Era</string>
+    <string name="list_item_unsplash_photo">List Item Unsplash Photo</string>
 </resources>

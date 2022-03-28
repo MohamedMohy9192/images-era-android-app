@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.ImagesEra.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">
+            @style/TextAppearance.ImagesEra.MaterialComponents.Headline4
+        </item>
+        <item name="android:background">@drawable/photo_owner_background_gradient</item>
+        <item name="drawableStartCompat">@drawable/ic_person</item>
+        <item name="drawableTint">@color/white</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.ImagesEra.MaterialComponents.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+
+</resources>
