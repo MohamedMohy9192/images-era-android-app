@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Images Era</string>
     <string name="list_item_unsplash_photo">List Item Unsplash Photo</string>
+    <string name="failed_to_connect">Failed To Connect</string>
+    <string name="retry">Retry</string>
+    <string name="no_results_found">No Results Found</string>
 </resources>

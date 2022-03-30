@@ -5,7 +5,7 @@
         <item name="android:textAppearance">
             @style/TextAppearance.ImagesEra.MaterialComponents.Headline4
         </item>
-        <item name="android:background">@drawable/photo_owner_background_gradient</item>
+        <item name="android:background">@drawable/unsplash_user_name_background_gradient</item>
         <item name="drawableStartCompat">@drawable/ic_person</item>
         <item name="drawableTint">@color/white</item>
         <item name="android:maxLines">1</item>
