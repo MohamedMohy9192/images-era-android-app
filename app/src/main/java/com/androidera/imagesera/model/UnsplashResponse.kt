@@ -2,6 +2,14 @@ package com.androidera.imagesera.model
 
 import com.google.gson.annotations.SerializedName
 
+data class UnsplashResponse(
+    val total: Int,
+    @SerializedName("total_pages")
+    val totalPages: Int,
+    @SerializedName("results")
+    val unsplashPhotos: List<UnsplashPhoto>
+)
+
 data class UnsplashPhoto(
     @SerializedName("created_at")
     val createdAt: String,
