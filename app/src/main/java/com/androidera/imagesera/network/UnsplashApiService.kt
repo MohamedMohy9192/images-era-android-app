@@ -2,8 +2,6 @@ package com.androidera.imagesera.network
 
 import com.androidera.imagesera.BuildConfig
 import com.androidera.imagesera.model.UnsplashResponse
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

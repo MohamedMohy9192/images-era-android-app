@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.androidera.imagesera.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+@AndroidEntryPoint // we need to annotate the fragment with this annotation to inject dependencies and also the parent activity
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
