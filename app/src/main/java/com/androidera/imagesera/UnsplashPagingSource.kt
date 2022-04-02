@@ -1,9 +1,10 @@
 package com.androidera.imagesera
 
 import androidx.paging.PagingSource
-import androidx.paging.PagingState
 import com.androidera.imagesera.model.UnsplashPhoto
 import com.androidera.imagesera.network.UnsplashApiService
+import retrofit2.HttpException
+import java.io.IOException
 
 private const val UNSPLASH_STARTING_PAGE_INDEX = 1
 
@@ -43,14 +44,11 @@ class UnsplashPagingSource(
                 // no more photos
                 nextKey = if (unsplashPhotos.isEmpty()) null else pageIndex.plus(1)
             )
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-            LoadResult.Error(throwable)
+        } catch (exception: IOException) {
+            LoadResult.Error(exception)
+        } catch (exception: HttpException) {
+            LoadResult.Error(exception)
         }
     }
-
-    override fun getRefreshKey(state: PagingState<Int, UnsplashPhoto>): Int? {
-        return state.anchorPosition
-    }
-
 }
+
