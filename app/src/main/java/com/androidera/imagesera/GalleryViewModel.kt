@@ -1,7 +1,9 @@
 package com.androidera.imagesera
 
-import android.util.MutableDouble
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
