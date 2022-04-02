@@ -15,7 +15,7 @@ class GalleryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: GalleryViewModel by viewModels<GalleryViewModel>()
+    private val viewModel: GalleryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +29,16 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.photos.observe(viewLifecycleOwner){
+        val unsplashPhotoAdapter = UnsplashPhotoAdapter()
 
+        binding.apply {
+            unsplashPhotosRecyclerView.setHasFixedSize(true)
+            unsplashPhotosRecyclerView.adapter = unsplashPhotoAdapter
+
+        }
+
+        viewModel.photos.observe(viewLifecycleOwner) {
+            unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
