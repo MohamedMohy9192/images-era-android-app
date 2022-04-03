@@ -44,7 +44,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupSearchQueryTextListener(menuItem: MenuItem) {
-        val searchView = menuItem as SearchView
+        val searchView = menuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
