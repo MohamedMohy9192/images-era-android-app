@@ -2,9 +2,12 @@ package com.androidera.imagesera
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import com.androidera.imagesera.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,9 +40,32 @@ class GalleryFragment : Fragment() {
                 header = UnsplashPhotoLoadStateAdapter(unsplashPhotoAdapter::retry),
                 footer = UnsplashPhotoLoadStateAdapter(unsplashPhotoAdapter::retry)
             )
+            errorMessageView.retryButton
+                .setOnClickListener { unsplashPhotoAdapter.retry() }
         }
         viewModel.photos.observe(viewLifecycleOwner) {
             unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+
+        unsplashPhotoAdapter.addLoadStateListener { combinedLoadStates ->
+            with(binding) {
+                unsplashPhotosProgressBar.isVisible =
+                    combinedLoadStates.source.refresh is LoadState.Loading
+                unsplashPhotosRecyclerView.isVisible =
+                    combinedLoadStates.source.refresh is LoadState.NotLoading
+                errorMessageView.root.isVisible =
+                    combinedLoadStates.source.refresh is LoadState.Error
+                // if no results to show for the search input
+                if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
+                    combinedLoadStates.append.endOfPaginationReached &&
+                    unsplashPhotoAdapter.itemCount < 1
+                ) {
+                    unsplashPhotosRecyclerView.isVisible = false
+                    searchResultTextView.isVisible = true
+                } else {
+                    searchResultTextView.isVisible = false
+                }
+            }
         }
     }
 
