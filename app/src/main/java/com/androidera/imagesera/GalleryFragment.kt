@@ -1,9 +1,8 @@
 package com.androidera.imagesera
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.androidera.imagesera.databinding.FragmentGalleryBinding
@@ -28,6 +27,7 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val unsplashPhotoAdapter = UnsplashPhotoAdapter()
 
@@ -37,12 +37,38 @@ class GalleryFragment : Fragment() {
                 header = UnsplashPhotoLoadStateAdapter(unsplashPhotoAdapter::retry),
                 footer = UnsplashPhotoLoadStateAdapter(unsplashPhotoAdapter::retry)
             )
-
         }
-
         viewModel.photos.observe(viewLifecycleOwner) {
             unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
+    }
+
+    private fun setupSearchQueryTextListener(menuItem: MenuItem) {
+        val searchView = menuItem as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    // reset the scroll position to the first item
+                    binding.unsplashPhotosRecyclerView.scrollToPosition(0)
+                    viewModel.searchPhotos(query)
+                    // Close the keyboard
+                    searchView.clearFocus()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_gallery, menu)
+
+        val searchItem = menu.findItem(R.id.action_search)
+        setupSearchQueryTextListener(searchItem)
     }
 
     override fun onDestroyView() {
